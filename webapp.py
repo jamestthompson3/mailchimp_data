@@ -27,7 +27,10 @@ def plot():
 	p.xaxis.axis_label="Send Date"
 	p.yaxis.axis_label="Open Rate"
 	p.circle(df["Send_Date"],df["Open_Rate"],color="#44D5FE",source=cds,size=9)
+	p.line(df["Send_Date"],df["Open_Rate"],color="#44D5FE",source=cds,line_width=3)
 
+	#p.line(df["Send_Date"],df["Open_Rate"].mean(),color="#FE7A7A",source=cds,line_width=2)
+	
 	script1,div1=components(p)
 	cdn_js=CDN.js_files[0]
 	cdn_css=CDN.css_files[0]

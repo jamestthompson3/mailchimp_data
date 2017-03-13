@@ -21,12 +21,12 @@ def plot():
 
 	cds=ColumnDataSource(df)
 	hover=HoverTool(tooltips=[("Group","@Title"),("Open Rate","@Open_Rate"),("Successful Deliveries", "@Successful_Deliveries"),("Total Opens","@Total_Opens"),("Click Rate","@Click_Rate"),("Total Clicks","@Total_Clicks"),("Unsubs","@Unsubscribes")])
-	p=figure(plot_width=700,plot_height=400,x_axis_type="datetime")
+	p=figure(plot_width=700,plot_height=400,x_axis_type="datetime",responsive=True)
 	p.add_tools(hover)
-	p.title="Email Campaign Open Rates"
+	p.title="Email Campaign Open Rates (hover over dots for details)"
 	p.xaxis.axis_label="Send Date"
 	p.yaxis.axis_label="Open Rate"
-	p.circle(df["Send_Date"],df["Open_Rate"],color="#44D5FE",source=cds,size=7)
+	p.circle(df["Send_Date"],df["Open_Rate"],color="#44D5FE",source=cds,size=9)
 
 	script1,div1=components(p)
 	cdn_js=CDN.js_files[0]

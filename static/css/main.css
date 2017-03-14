@@ -2,7 +2,7 @@ body{
 	margin: 0;
 	padding: 10px;
 	font-family: "Helvetica Neue", Helvetica;
-	color: #444;
+	color: #555;
 }
 header {
   background-color: #44D5FE;
@@ -11,7 +11,14 @@ header {
   opacity: .9;
   margin-bottom: 10px;
 }
-.container {
-  width: 1200px;
+nav{
+  float: bottom;
+  max-width: 160px;
+  margin: 0;
+  padding: 1em;
+
+}
+div.container {
+  width: 100%;
   margin: 0 auto;
 }

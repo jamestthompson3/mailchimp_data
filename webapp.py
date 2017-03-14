@@ -10,8 +10,41 @@ app=Flask(__name__)
 @app.route('/')
 def home():
 	return render_template("home.html")
-@app.route('/plot/')
-def plot():
+@app.route('/newsletter/')
+def newsletter():
+	import pandas as pd
+	import datetime
+	from bokeh.plotting import output_file, show, figure
+	from bokeh.models import HoverTool, ColumnDataSource
+	from bokeh.embed import components
+	from bokeh.resources import CDN
+
+
+	df=pd.read_csv("domino_newsletter.csv", parse_dates=["Send_Date"])
+
+	cds=ColumnDataSource(df)
+
+	hover=hover=HoverTool(tooltips=[("Title","@Title"),("Open Rate","@Open_Rate"),("Successful Deliveries", "@Successful_Deliveries"),("Opens","@Unique_Opens"),("Click Rate","@Click_Rate"),("Total Clicks","@Total_Clicks"),("Unsubs","@Unsubscribes"),("Bounces","@Total_Bounces")])
+
+	p=figure(plot_width=700,plot_height=400,x_axis_type="datetime",responsive=True)
+	p.add_tools(hover)
+	p.title.text="Newsletter Open Rates"
+	p.xaxis.axis_label="Send Date"
+	p.yaxis.axis_label="Open Rate"
+	p.square(df["Send_Date"],df["Open_Rate"],color="#44D5FE",source=cds,size=7)
+
+
+	script1,div1=components(p)
+	cdn_js=CDN.js_files[0]
+	cdn_css=CDN.css_files[0]
+	return render_template("newsletter.html",
+    script1=script1,
+    div1=div1,
+    cdn_css=cdn_css,
+    cdn_js=cdn_js )
+
+@app.route('/marketing/')
+def marketing():
 	import pandas as pd
 	from bokeh.plotting import output_file, show, figure
 	from bokeh.models import HoverTool, ColumnDataSource
@@ -20,7 +53,7 @@ def plot():
 	df=pd.read_csv("mailchimp_campaigns.csv", parse_dates=["Send_Date"])
 
 	cds=ColumnDataSource(df)
-	hover=HoverTool(tooltips=[("Group","@Title"),("Open Rate","@Open_Rate"),("Successful Deliveries", "@Successful_Deliveries"),("Total Opens","@Total_Opens"),("Click Rate","@Click_Rate"),("Total Clicks","@Total_Clicks"),("Unsubs","@Unsubscribes")])
+	hover=HoverTool(tooltips=[("Group","@Title"),("Open Rate","@Open_Rate"),("Subject","@Subject"),("Successful Deliveries", "@Successful_Deliveries"),("Opens","@Unique_Opens"),("Click Rate","@Click_Rate"),("Total Clicks","@Total_Clicks"),("Unsubs","@Unsubscribes"),("Bounces","@Total_Bounces")])
 	p=figure(plot_width=700,plot_height=400,x_axis_type="datetime",responsive=True)
 	p.add_tools(hover)
 	p.title="Email Campaign Open Rates (hover over dots for details)"
@@ -34,7 +67,7 @@ def plot():
 	script1,div1=components(p)
 	cdn_js=CDN.js_files[0]
 	cdn_css=CDN.css_files[0]
-	return render_template("plot.html",
+	return render_template("marketing.html",
     script1=script1,
     div1=div1,
     cdn_css=cdn_css,

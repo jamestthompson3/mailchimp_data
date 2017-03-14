@@ -28,7 +28,7 @@ def newsletter():
 
 	p=figure(plot_width=700,plot_height=400,x_axis_type="datetime",responsive=True)
 	p.add_tools(hover)
-	p.title.text="Newsletter Open Rates"
+	p.title.text="Newsletter Open Rates (hover for more details)"
 	p.xaxis.axis_label="Send Date"
 	p.yaxis.axis_label="Open Rate"
 	p.square(df["Send_Date"],df["Open_Rate"],color="#44D5FE",source=cds,size=7)
@@ -56,7 +56,7 @@ def marketing():
 	hover=HoverTool(tooltips=[("Group","@Title"),("Open Rate","@Open_Rate"),("Subject","@Subject"),("Successful Deliveries", "@Successful_Deliveries"),("Opens","@Unique_Opens"),("Click Rate","@Click_Rate"),("Total Clicks","@Total_Clicks"),("Unsubs","@Unsubscribes"),("Bounces","@Total_Bounces")])
 	p=figure(plot_width=700,plot_height=400,x_axis_type="datetime",responsive=True)
 	p.add_tools(hover)
-	p.title="Email Campaign Open Rates (hover over dots for details)"
+	p.title="Email Campaign Open Rates (hover for more details)"
 	p.xaxis.axis_label="Send Date"
 	p.yaxis.axis_label="Open Rate"
 	p.circle(df["Send_Date"],df["Open_Rate"],color="#44D5FE",source=cds,size=9)

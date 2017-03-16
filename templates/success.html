@@ -1,0 +1,15 @@
+{%extends "email_validation.html"%}
+{%block content%}
+<script type="text/javascript">// <![CDATA[
+        function loading(){
+            $("#loading").show();
+            $("content").hide();
+            }
+            // ]]></script>
+<div id="loading"></div>
+<head>
+<link rel="stylesheet" href="{{url_for('static',filename='css/loading.css')}}">
+
+<h1><strong>Success!</strong></h1>	
+</head>
+{%endblock%}

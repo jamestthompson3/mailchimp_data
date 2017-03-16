@@ -1,0 +1,24 @@
+{%block content%}
+<script type="text/javascript">// <![CDATA[
+        function loading(){
+            $("#loading").show();
+            $("content").hide();
+            }
+            // ]]></script>
+<div id="loading"></div>
+<head>
+<link rel="stylesheet" href="{{url_for('static',filename='css/loading.css')}}">
+
+<h1><strong>Validate Marketing Emails</strong></h1>	
+</head>
+<body>
+<form name="upload" action="{{ url_for('email_validation') }}" method="POST", enctype="multipart/form-data">
+	<input type="file" name="upload"> <br>
+	<button type ="submit"> Submit </button>
+</form>
+</body>
+<strong><nav>
+            <h4><a href="{{ url_for('marketing') }}">Marketing Campaigns</a></h4>
+            <h4></h4><a href="{{ url_for('newsletter') }}">Newsletter</a></h4>
+        </nav></strong>
+{%endblock%}

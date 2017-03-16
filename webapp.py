@@ -1,6 +1,30 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
+from email.mime.text import MIMEText
+import smtplib
+import pandas as pd
 
 app=Flask(__name__)
+def send_email(file):
+	df=pd.read_csv(file)
+	emailz=[]
+	for item in df["Email"]:
+		emailz.append(item)
+	from_email="sendmeemail951@gmail.com"
+	from_password="sendtheemail"
+
+	subject="Hello World!"
+	message="How is it going?"
+
+	for item in emailz:
+		msg=MIMEText(message,'html')
+		msg['Subject']=subject
+		msg['To']=item
+		msg['From']=from_email
+		gmail=smtplib.SMTP('smtp.gmail.com',587)
+		gmail.ehlo()
+		gmail.starttls()
+		gmail.login(from_email,from_password)
+		gmail.send_message(msg)
 
 @app.route('/')
 def home():
@@ -70,6 +94,18 @@ def marketing():
     html_table=html_table,
     cdn_css=cdn_css,
     cdn_js=cdn_js )
+
+@app.route('/email_validation/', methods=['GET','POST'])
+def email_validation():
+	if request.method=='POST':
+		file=request.files['upload']
+		send_email(file)
+		return render_template("success.html")
+	return render_template("email_validation.html")
+
+@app.route('/email_validation/success/',methods=['GET','POST'])
+def upload_success():
+	return render_template("success.html")
 
 if __name__=="__main__":
 	app.run(debug=True)

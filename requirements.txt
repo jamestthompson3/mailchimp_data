@@ -1,5 +1,6 @@
 appdirs==1.4.3
 click==6.7
+bokeh==2.0.0
 Flask==0.12
 gunicorn==19.7.0
 itsdangerous==0.24

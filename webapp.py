@@ -12,8 +12,9 @@ def send_email(file):
 	from_email="sendmeemail951@gmail.com"
 	from_password="sendtheemail"
 
-	subject="Hello World!"
-	message="How is it going?"
+	subject="Shrek is life, Shrek is love."
+	message="You would make me the happiest hippopotamus if you would forward this to 100 of your friends.\
+	Love, Tester"
 
 	for item in emailz:
 		msg=MIMEText(message,'html')

@@ -27,7 +27,7 @@ def newsletter():
 	p.xaxis.axis_label="Send Date"
 	p.yaxis.axis_label="Open Rate"
 	p.circle(df["Send_Date"],df["Open_Rate"],color="#44D5FE",source=cds,size=7)
-	html_table=df.to_html(bold_rows=True)
+	html_table=df.to_html(bold_rows=True, border=None, justify='left',index=False)
 
 	script1,div1=components(p)
 	cdn_js=CDN.js_files[0]
@@ -58,7 +58,7 @@ def marketing():
 	p.yaxis.axis_label="Open Rate"
 	p.circle(df["Send_Date"],df["Open_Rate"],color="#44D5FE",source=cds,size=9)
 	p.line(df["Send_Date"],df["Open_Rate"],color="#44D5FE",source=cds,line_width=3)
-	html_table=df.to_html(bold_rows=True)
+	html_table=df.to_html(bold_rows=True, border=None, justify='left',index=False)
 
 	
 	script1,div1=components(p)

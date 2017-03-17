@@ -4,13 +4,12 @@
 <script type="text/javascript" src={{cdn_js | safe}}></script>
 {{script1 | safe}}
 {{div1 | safe}}
+<nav><strong>
+            <a href="{{ url_for('marketing') }}">Marketing Campaigns</a>
+            <a href="{{ url_for('home') }}">Home</a>
+        </strong></nav>
 <script type="table/html" src={{html_table | safe}}></script>
 {{html_table | safe}}
-<nav>
-          <ul class="menu">
-            <li><a href="{{ url_for('marketing') }}">Marketing Campaigns</a></li>
-            <li><a href="{{ url_for('home') }}">Home</a></li>
-          </ul>
-        </nav>
+
 
 {%endblock%}

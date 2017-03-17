@@ -48,9 +48,14 @@ def newsletter():
 
 	p=figure(plot_width=700,plot_height=400,x_axis_type="datetime",responsive=True)
 	p.add_tools(hover)
+	
 	p.title.text="Newsletter Open Rates (hover for more details)"
+	p.title.text_font_size='30pt'
 	p.xaxis.axis_label="Send Date"
-	p.yaxis.axis_label="Open Rate"
+	p.xaxis.axis_label_text_font_size="20pt"
+	p.yaxis.axis_label="Open Rate (%) "
+	p.yaxis.axis_label_text_font_size="20pt"
+	
 	p.circle(df["Send_Date"],df["Open_Rate"],color="#44D5FE",source=cds,size=7)
 	html_table=df.to_html(bold_rows=True, border=None, justify='left',index=False)
 
@@ -75,13 +80,20 @@ def marketing():
 
 
 	cds=ColumnDataSource(df)
-	hover=HoverTool(tooltips=[("Group","@Title"),("Open Rate","@Open_Rate"),("Subject","@Subject"),("Successful Deliveries", "@Successful_Deliveries"),("Opens","@Unique_Opens"),("Click Rate","@Click_Rate"),("Total Clicks","@Total_Clicks"),("Unsubs","@Unsubscribes"),("Bounces","@Total_Bounces")])
+	
 	p=figure(plot_width=700,plot_height=400,x_axis_type="datetime",responsive=True)
+	hover=HoverTool(tooltips=[("Group","@Title"),("Open Rate","@Open_Rate"),("Subject","@Subject"),("Successful Deliveries", "@Successful_Deliveries"),("Opens","@Unique_Opens"),("Click Rate","@Click_Rate"),
+		("Total Clicks","@Total_Clicks"),("Unsubs","@Unsubscribes"),("Bounces","@Total_Bounces")])
+	
 	p.add_tools(hover)
 	p.title="Email Campaign Open Rates (hover for more details)"
+	p.title.text_font_size='30pt'
 	p.xaxis.axis_label="Send Date"
-	p.yaxis.axis_label="Open Rate"
-	p.circle(df["Send_Date"],df["Open_Rate"],color="#44D5FE",source=cds,size=9)
+	p.xaxis.axis_label_text_font_size="20pt"
+	p.yaxis.axis_label="Open Rate (%) "
+	p.yaxis.axis_label_text_font_size="20pt"
+	
+	p.circle(df["Send_Date"],df["Open_Rate"],color="#44D5FE",source=cds,size=11)
 	p.line(df["Send_Date"],df["Open_Rate"],color="#44D5FE",source=cds,line_width=3)
 	html_table=df.to_html(bold_rows=True, border=None, justify='left',index=False)
 

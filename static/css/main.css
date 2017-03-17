@@ -6,15 +6,6 @@ body{
   font-weight: 600;
   src: url("https://use.typekit.net/af/72fca1/00000000000000003b9acf2d/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3") format("woff2"), url("https://use.typekit.net/af/72fca1/00000000000000003b9acf2d/27/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3");
 
-}
-header {
-  padding: 10px;
-  font-family: "adelle-sans";
-  font-style: normal;
-  font-weight: 600;
-  color: #555;
-  width: 100%;
-}
 nav{
   float: bottom;
   max-width: 160px;

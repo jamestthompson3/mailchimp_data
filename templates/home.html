@@ -2,20 +2,19 @@
 <html>
 	<head>
 	<title>MyDomino Marketing Toolbelt</title>
-	<link rel="stylesheet" href="{{url_for('static',filename='css/main.css')}}"
+	<link rel="stylesheet" href="{{url_for('static',filename='css/main.css')}}">
 </head>
 <body>
 	<header>
 	<div class="container">
 	<h1 class="title">MyDomino Marketing Tools</h1>
-	<strong><nav>
+	<strong>
             <h2><a href="{{ url_for('marketing') }}">Marketing Campaigns</a></h2>
             <p>An interactive plot and statistics of all recent marketing campaigns.</p>
             <h2><a href="{{ url_for('newsletter') }}">Newsletter</a></h2>
             <p>An interactive plot and statistics of the MyDomino Newsletter</p>
             <h2><a href="{{ url_for('email_validation') }}"> Email Validation</a></h2>
-            <p>A tool to help validate emails scraped from the web</p>
-        </nav></strong>
+            <p>A tool to help validate emails scraped from the web</p></strong>
       </div>
     </header>
     <div class="container">

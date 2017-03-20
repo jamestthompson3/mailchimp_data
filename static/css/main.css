@@ -1,13 +1,27 @@
 body{
-	margin: 0;
-	padding: 10px;
+	margin: auto;
+	padding: 15px;
 	font-family: "adelle-sans";
   font-style: normal;
   font-weight: 600;
-  src: url("https://use.typekit.net/af/72fca1/00000000000000003b9acf2d/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3") format("woff2"), url("https://use.typekit.net/af/72fca1/00000000000000003b9acf2d/27/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3");
-
-nav{
-  float: bottom;
-  max-width: 160px;
-  margin: 0;
-  padding: 1em;
+  float:auto;
+}
+#title{
+  margin: auto;
+  padding: 20px;
+  font-family: "adelle-sans";
+  font-style: normal;
+  font-weight: 600;
+  float:auto;
+  color:black;
+}
+header {
+  padding: 10px;
+  font-family: "adelle-sans";
+  background-color: #18b2f4;
+  margin:auto;
+  font-style: normal;
+  font-weight: 600;
+  color: #700;
+  width: 100%;
+}

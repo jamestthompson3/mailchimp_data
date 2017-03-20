@@ -12,9 +12,8 @@ def send_email(file):
 	from_email="sendmeemail951@gmail.com"
 	from_password="sendtheemail"
 
-	subject="Shrek is life, Shrek is love."
-	message="You would make me the happiest hippopotamus if you would forward this to 100 of your friends.\
-	Love, Tester"
+	subject="Hello."
+	message="This was sent by one of your friends. You are doing a great job and someone cares about you! I hope you have a wonderful day!"
 
 	for item in emailz:
 		msg=MIMEText(message,'html')
@@ -50,11 +49,11 @@ def newsletter():
 	p.add_tools(hover)
 	
 	p.title.text="Newsletter Open Rates (hover for more details)"
-	p.title.text_font_size='30pt'
+	p.title.text_font_size='20pt'
 	p.xaxis.axis_label="Send Date"
-	p.xaxis.axis_label_text_font_size="20pt"
+	p.xaxis.axis_label_text_font_size="15pt"
 	p.yaxis.axis_label="Open Rate (%) "
-	p.yaxis.axis_label_text_font_size="20pt"
+	p.yaxis.axis_label_text_font_size="15pt"
 	
 	p.circle(df["Send_Date"],df["Open_Rate"],color="#44D5FE",source=cds,size=7)
 	html_table=df.to_html(bold_rows=True, border=None, justify='left',index=False)
@@ -87,11 +86,11 @@ def marketing():
 	
 	p.add_tools(hover)
 	p.title="Email Campaign Open Rates (hover for more details)"
-	p.title.text_font_size='30pt'
+	p.title.text_font_size='20pt'
 	p.xaxis.axis_label="Send Date"
-	p.xaxis.axis_label_text_font_size="20pt"
+	p.xaxis.axis_label_text_font_size="15pt"
 	p.yaxis.axis_label="Open Rate (%) "
-	p.yaxis.axis_label_text_font_size="20pt"
+	p.yaxis.axis_label_text_font_size="15pt"
 	
 	p.circle(df["Send_Date"],df["Open_Rate"],color="#44D5FE",source=cds,size=11)
 	p.line(df["Send_Date"],df["Open_Rate"],color="#44D5FE",source=cds,line_width=3)

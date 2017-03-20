@@ -8,7 +8,7 @@
 <div id="loading"></div>
 <head>
 <link rel="stylesheet" href="{{url_for('static',filename='css/loading.css')}}">
-
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <h1><strong>Validate Marketing Emails</strong></h1>	
 </head>
 <body>
@@ -16,11 +16,7 @@
 <p>Please be patient, as the process may take a few minutes depending on the size of the list.</p>
 <form name="upload" action="{{ url_for('email_validation') }}" method="POST", enctype="multipart/form-data">
 	<input type="file" name="upload"> <br>
-	<input type ="submit" value="Start The Magic Machine!">
+	<input type ="submit" class="btn btn-primary" value="Start The Magic Machine!">
 </form>
 </body>
-<strong><nav>
-            <h4><a href="{{ url_for('marketing') }}">Marketing Campaigns</a></h4>
-            <h4></h4><a href="{{ url_for('newsletter') }}">Newsletter</a></h4>
-        </nav></strong>
 {%endblock%}

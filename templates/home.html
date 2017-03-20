@@ -5,19 +5,21 @@
 	<link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/main.css')}}">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     </head>
-	<header>
+<body> 
+<nav class="navbar navbar-inverse">
+<div class="navbar-header">
+    <a class="navbar-brand" href="{{ url_for('home') }}">Home</a>
+
+</div>
+    <ul class="nav navbar-nav">
+        <li><a href="{{ url_for('marketing') }}">Marketing</a></li>
+        <li><a href="{{ url_for('newsletter') }}">Newsletter</a></li>
+        <li><a href="{{ url_for('email_validation') }}">Email Validation</a></li>
+    </ul>
+</nav>
+    <header>
         <h1 class="title" id="title">MyDomino Marketing Tools</h1>
           </header>
-<body> 
-<div class="container">
-	<strong>
-            <h3><a href="{{ url_for('marketing') }}" id="market">Marketing Campaigns</a></h2>
-            <p id="market">An interactive plot and statistics of all recent marketing campaigns.</p>
-            <h3><a href="{{ url_for('newsletter') }}" id="news">Newsletter</a></h2>
-            <p id="market">An interactive plot and statistics of the MyDomino Newsletter</p>
-            <h3><a href="{{ url_for('email_validation') }}" id="verify"> Email Validation</a></h2>
-            <p>A tool to help validate emails scraped from the web</p></strong>
-      </div>
 
         {%block content%}
         {%endblock%}

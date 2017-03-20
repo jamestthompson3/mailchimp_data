@@ -4,7 +4,12 @@
 <script type="text/javascript" src={{cdn_js | safe}}></script>
 {{script1 | safe}}
 {{div1 | safe}}
-<script type="table/html" class="table" src={{html_table | safe}}></script>
-{{html_table | safe}}
-
+<div class="container">
+<!-- <script type="table/html" class="table" src={{html_table | safe}}></script>
+ -->
+ <table class="table table-striped" src={{html_table | safe}}
+ 	
+ </table>
+ <!-- {{html_table | safe}} -->
+</div>
 {%endblock%}

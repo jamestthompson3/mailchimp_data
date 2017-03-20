@@ -56,8 +56,10 @@ def newsletter():
 	p.yaxis.axis_label_text_font_size="15pt"
 	
 	p.circle(df["Send_Date"],df["Open_Rate"],color="#44D5FE",source=cds,size=7)
-	html_table=df.to_html(bold_rows=True, border=None, justify='left',index=False)
-
+	r=df[["Send_Date", "Successful_Deliveries","Soft_Bounces","Hard_Bounces","Total_Bounces",
+	"Unique_Opens","Unique_Clicks","Unsubscribes"]].groupby([pd.Grouper(freq='1W',key='Send_Date')]).sum()
+	html_table=r.to_html(bold_rows=True, border=None, justify='left',index=True)
+	
 	script1,div1=components(p)
 	cdn_js=CDN.js_files[0]
 	cdn_css=CDN.css_files[0]
@@ -94,8 +96,9 @@ def marketing():
 	
 	p.circle(df["Send_Date"],df["Open_Rate"],color="#44D5FE",source=cds,size=11)
 	p.line(df["Send_Date"],df["Open_Rate"],color="#44D5FE",source=cds,line_width=3)
-	html_table=df.to_html(bold_rows=True, border=None, justify='left',index=False)
-
+	r=df[["Send_Date", "Successful_Deliveries","Soft_Bounces","Hard_Bounces","Total_Bounces",
+	"Unique_Opens","Unique_Clicks","Unsubscribes"]].groupby([pd.Grouper(freq='1W',key='Send_Date')]).sum()
+	html_table=r.to_html(bold_rows=True, border=None, justify='left',index=True)
 	
 	script1,div1=components(p)
 	cdn_js=CDN.js_files[0]

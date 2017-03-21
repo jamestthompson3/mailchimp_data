@@ -1,7 +1,13 @@
 from flask import Flask, render_template, request
 from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
+from email.mime.application import MIMEApplication
 import smtplib
+import email
 import pandas as pd
+import imaplib
+from flufl.bounce import all_failures
+import time
 
 app=Flask(__name__)
 def send_email(file):
@@ -25,6 +31,48 @@ def send_email(file):
 		gmail.starttls()
 		gmail.login(from_email,from_password)
 		gmail.send_message(msg)
+
+def check_bounces(address):
+	time.sleep(40)
+	mail=imaplib.IMAP4_SSL('imap.gmail.com')
+	mail.login('sendmeemail951@gmail.com','sendtheemail')
+	mail.list()
+	mail.select("inbox")
+	email_list=[]
+	result, data = mail.uid('search', None, "ALL") # search and return uids instead
+	latest_email_uid = data[0].split()
+	for item in latest_email_uid:
+		result, data = mail.uid('fetch', item, '(RFC822)')
+		raw_email=data[0][1]
+		email_message = email.message_from_bytes(raw_email)
+		temporary, permanent=all_failures(email_message)
+		email_list.append(permanent)
+		with open("bounces.csv",'a+') as file:
+			for item in email_list:
+				r=str(item)
+				file.write(r)
+	
+	from_email="sendmeemail951@gmail.com"
+	from_password="sendtheemail"
+
+	subject="Bounced Emails"
+	message="Attached is a text file of the addresses that bounced."
+	
+	msg=MIMEMultipart()
+	msg['Subject']=subject
+	msg['To']=address
+	msg['From']=from_email
+	msg.attach(MIMEText(message,'html'))
+	part=MIMEApplication(open(str("bounces.csv"),'rb').read())
+	part.add_header('Content-Disposition','attachment',filename="bounces")
+	msg.attach(part)
+
+	gmail=smtplib.SMTP('smtp.gmail.com',587)
+	gmail.ehlo()
+	gmail.starttls()
+	gmail.login(from_email,from_password)
+	gmail.send_message(msg)
+
 
 @app.route('/')
 def home():
@@ -120,7 +168,11 @@ def email_validation():
 
 @app.route('/email_validation/success/',methods=['GET','POST'])
 def upload_success():
-	return render_template("success.html")
+	if request.method=='POST':
+		email_1=request.form["email_name"]
+		check_bounces(email_1)
+		return render_template("thanks.html")
+	#return render_template("success.html")
 
 if __name__=="__main__":
 	app.run(debug=True)

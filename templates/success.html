@@ -1,21 +1,23 @@
 {%extends "email_validation.html"%}
 {%block content%}
-<script type="text/javascript">// <![CDATA[
-        function loading(){
-            $("#loading").show();
-            $("content").hide();
-            }
-            // ]]></script>
-<div id="loading"></div>
 <head>
-<link rel="stylesheet" href="{{url_for('static',filename='css/loading.css')}}">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
-
 </head>
 <body>
-	<h1><strong>Success!</strong></h1>	
-	<a href="{{url_for('newsletter')}}"> Newsletter</a>
-	<a href="{{url_for('marketing')}}"> Marketing</a>
+	<div class="container">
+		<div class="jumbotron">
+			<h1>Success!</h1>
+			<p>It may take a while for the bounces to accumulate in you inbox. We'll send you an email with csv containing the rejects.</p>
+			<form class="form-group" action="{{ url_for('upload_success') }}" method="POST">
+			
+			<label for="email_name"> Enter Email</label>
+			<input type="email" class="form-control" name="email_name" placeholder="Email">
+
+			<button type="submit" class="btn btn-primary">Check those emails!</button>
+			</form>
+		</div>
+	</div>
+
+
 </body>
 {%endblock%}

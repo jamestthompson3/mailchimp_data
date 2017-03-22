@@ -8,6 +8,11 @@ import pandas as pd
 import imaplib
 from flufl.bounce import all_failures
 import time
+import datetime
+from bokeh.plotting import output_file, show, figure
+from bokeh.models import HoverTool, ColumnDataSource
+from bokeh.embed import components
+from bokeh.resources import CDN
 
 app=Flask(__name__)
 def send_email(file):
@@ -79,14 +84,6 @@ def home():
 	return render_template("home.html")
 @app.route('/newsletter/')
 def newsletter():
-	import pandas as pd
-	import datetime
-	from bokeh.plotting import output_file, show, figure
-	from bokeh.models import HoverTool, ColumnDataSource
-	from bokeh.embed import components
-	from bokeh.resources import CDN
-
-
 	df=pd.read_csv("domino_newsletter.csv", parse_dates=["Send_Date"])
 
 	cds=ColumnDataSource(df)
@@ -120,11 +117,6 @@ def newsletter():
 
 @app.route('/marketing/')
 def marketing():
-	import pandas as pd
-	from bokeh.plotting import output_file, show, figure
-	from bokeh.models import HoverTool, ColumnDataSource
-	from bokeh.embed import components
-	from bokeh.resources import CDN
 	df=pd.read_csv("mailchimp_campaigns.csv", parse_dates=["Send_Date"])
 
 

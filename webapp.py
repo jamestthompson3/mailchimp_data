@@ -17,16 +17,13 @@ from bokeh.resources import CDN
 app=Flask(__name__)
 def send_email(file):
 	df=pd.read_csv(file)
-	emailz=[]
-	for item in df["Email"]:
-		emailz.append(item)
 	from_email="sendmeemail951@gmail.com"
 	from_password="sendtheemail"
 
 	subject="Hello."
 	message="This was sent by one of your friends. You are doing a great job and someone cares about you! I hope you have a wonderful day!"
 
-	for item in emailz:
+	for item in df["Email"]:
 		msg=MIMEText(message,'html')
 		msg['Subject']=subject
 		msg['To']=item

@@ -1,7 +1,17 @@
-{%extends "home.html"%}
-{%block content%}
+<head><nav class="navbar navbar-inverse">
+	<div class="navbar-header">
+    <a class="navbar-brand" href="{{ url_for('home') }}">Home</a>
+	</div>
+    <ul class="nav navbar-nav">
+        <li><a href="{{ url_for('marketing') }}">Marketing</a></li>
+        <li><a href="{{ url_for('newsletter') }}">Newsletter</a></li>
+        <li><a href="{{ url_for('email_validation') }}">Email Validation</a></li>
+    </ul>
+</nav>
+</head>
 <link rel="stylesheet" href={{cdn_css | safe}} type="text/css" />
 <script type="text/javascript" src={{cdn_js | safe}}></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 {{script1 | safe}}
 {{div1 | safe}}
 <div class="container">
@@ -12,4 +22,4 @@
  </table>
  <!-- {{html_table | safe}} -->
 </div>
-{%endblock%}
+

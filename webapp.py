@@ -33,7 +33,7 @@ def send_email(file):
 		gmail.send_message(msg)
 
 def check_bounces(address):
-	time.sleep(40)
+	time.sleep(400)
 	mail=imaplib.IMAP4_SSL('imap.gmail.com')
 	mail.login('sendmeemail951@gmail.com','sendtheemail')
 	mail.list()

@@ -32,7 +32,7 @@ def send_email(file):
 		gmail.ehlo()
 		gmail.starttls()
 		gmail.login(from_email,from_password)
-		gmail.send_message(msg)
+		gmail.send_message(msg) 
 
 def check_bounces(address):
 	time.sleep(4000)

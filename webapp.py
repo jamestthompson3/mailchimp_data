@@ -9,6 +9,7 @@ import imaplib
 from flufl.bounce import all_failures
 import time
 import datetime
+import csv
 from bokeh.plotting import output_file, show, figure
 from bokeh.models import HoverTool, ColumnDataSource
 from bokeh.embed import components
@@ -50,9 +51,8 @@ def check_bounces(address):
 		temporary, permanent=all_failures(email_message)
 		email_list.append(permanent)
 		with open("bounces.csv",'a+') as file:
-			for item in email_list:
-				r=str(item)
-				file.write(r)
+			write=csv.writer(file, delimiter=',')
+			write.writerow(email_list)
 	
 	from_email="sendmeemail951@gmail.com"
 	from_password="sendtheemail"

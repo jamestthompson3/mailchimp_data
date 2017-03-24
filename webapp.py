@@ -9,6 +9,7 @@ import imaplib
 from flufl.bounce import all_failures
 import time
 import datetime
+import numpy as np
 import csv
 from bokeh.plotting import output_file, show, figure
 from bokeh.models import HoverTool, ColumnDataSource
@@ -20,23 +21,23 @@ def send_email(file):
 	df=pd.read_csv(file)
 	from_email="sendmeemail951@gmail.com"
 	from_password="sendtheemail"
-
+	
 	subject="Hello."
 	message="This was sent by one of your friends. You are doing a great job and someone cares about you! I hope you have a wonderful day!"
-
+	msg=MIMEText(message,'html')
+	msg['Subject']=subject
+	msg['From']=from_email
 	for item in df["Email"]:
-		msg=MIMEText(message,'html')
-		msg['Subject']=subject
+		
 		msg['To']=item
-		msg['From']=from_email
 		gmail=smtplib.SMTP('smtp.gmail.com',587)
 		gmail.ehlo()
 		gmail.starttls()
 		gmail.login(from_email,from_password)
-		gmail.send_message(msg) 
+		gmail.send_message(msg)
 
 def check_bounces(address):
-	time.sleep(4000)
+	#time.sleep(4000)
 	mail=imaplib.IMAP4_SSL('imap.gmail.com')
 	mail.login('sendmeemail951@gmail.com','sendtheemail')
 	mail.list()
@@ -88,6 +89,7 @@ def newsletter():
 	hover=HoverTool(tooltips=[("Title","@Title"),("Open Rate","@Open_Rate"),("Successful Deliveries", "@Successful_Deliveries"),("Opens","@Unique_Opens"),("Click Rate","@Click_Rate"),("Total Clicks","@Total_Clicks"),("Unsubs","@Unsubscribes"),("Bounces","@Total_Bounces")])
 
 	p=figure(plot_width=700,plot_height=400,x_axis_type="datetime",responsive=True)
+	
 	p.add_tools(hover)
 	
 	p.title.text="Newsletter Open Rates (hover for more details)"
@@ -97,10 +99,14 @@ def newsletter():
 	p.yaxis.axis_label="Open Rate (%) "
 	p.yaxis.axis_label_text_font_size="15pt"
 	
-	p.circle(df["Send_Date"],df["Open_Rate"],color="#44D5FE",source=cds,size=7)
+	p.circle(df["Send_Date"],df["Open_Rate"],fill_color="#44D5FE", line_color="gray",source=cds,size=11)
 	r=df[["Send_Date", "Successful_Deliveries","Soft_Bounces","Hard_Bounces","Total_Bounces",
-	"Unique_Opens","Unique_Clicks","Unsubscribes"]].groupby([pd.Grouper(freq='1W',key='Send_Date')]).sum()
-	html_table=r.to_html(bold_rows=True, border=None, justify='left',index=True)
+	"Unique_Opens","Unique_Clicks","Unsubscribes","Open_Rate","Click_Rate"]].groupby([pd.Grouper(freq='1W',key='Send_Date')]).agg({"Open_Rate": np.mean, "Click_Rate" : np.mean,
+	 "Successful_Deliveries" : np.sum,"Soft_Bounces" : np.sum,"Hard_Bounces" : np.sum,"Total_Bounces" : np.sum,
+	"Unique_Opens" : np.sum,"Unique_Clicks" : np.sum,"Unsubscribes" : np.sum}).round(2)
+	
+	html_table=r.to_html(bold_rows=True, header=True, border=None, justify='left',index=True)
+	
 	
 	script1,div1=components(p)
 	cdn_js=CDN.js_files[0]
@@ -131,10 +137,17 @@ def marketing():
 	p.yaxis.axis_label="Open Rate (%) "
 	p.yaxis.axis_label_text_font_size="15pt"
 	
-	p.circle(df["Send_Date"],df["Open_Rate"],color="#44D5FE",source=cds,size=11)
 	p.line(df["Send_Date"],df["Open_Rate"],color="#44D5FE",source=cds,line_width=3)
+	p.circle(df["Send_Date"],df["Open_Rate"],fill_color="#44D5FE", line_color="gray",source=cds,size=11)
+	#p.rect(x="Send_Date",y="Open_Rate",width=7,height=10,color="#44D5FE",source=cds)
+
+	
+	
 	r=df[["Send_Date", "Successful_Deliveries","Soft_Bounces","Hard_Bounces","Total_Bounces",
-	"Unique_Opens","Unique_Clicks","Unsubscribes"]].groupby([pd.Grouper(freq='1W',key='Send_Date')]).sum()
+	"Unique_Opens","Unique_Clicks","Unsubscribes","Open_Rate","Click_Rate"]].groupby([pd.Grouper(freq='1W',key='Send_Date')]).agg({"Open_Rate": np.mean, "Click_Rate" : np.mean,
+	 "Successful_Deliveries" : np.sum,"Soft_Bounces" : np.sum,"Hard_Bounces" : np.sum,"Total_Bounces" : np.sum,
+	"Unique_Opens" : np.sum,"Unique_Clicks" : np.sum,"Unsubscribes" : np.sum}).round(2)
+	
 	html_table=r.to_html(bold_rows=True, border=None, justify='left',index=True)
 	
 	script1,div1=components(p)

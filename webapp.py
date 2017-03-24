@@ -12,7 +12,7 @@ import datetime
 import numpy as np
 import csv
 from bokeh.plotting import output_file, show, figure
-from bokeh.models import HoverTool, ColumnDataSource
+from bokeh.models import *
 from bokeh.embed import components
 from bokeh.resources import CDN
 
@@ -133,7 +133,6 @@ def marketing():
 	
 	p.add_tools(hover)
 	p.logo=None
-	p.toolbar_location=None
 	p.title="Email Campaign Open Rates (hover for more details)"
 	p.title.text_font_size='20pt'
 	p.xaxis.axis_label="Send Date"
@@ -141,17 +140,17 @@ def marketing():
 	p.yaxis.axis_label="Open Rate (%) "
 	p.yaxis.axis_label_text_font_size="15pt"
 	
-	p.line(df["Send_Date"],df["Open_Rate"],color="#44D5FE",source=cds,line_width=3)
+	p.line(df["Send_Date"],df["Open_Rate"],color="gray",source=cds,line_width=3)
 	p.circle(df["Send_Date"],df["Open_Rate"],fill_color="#44D5FE", line_color="gray",source=cds,size=11)
-	#p.rect(x="Send_Date",y="Open_Rate",width=7,height=10,color="#44D5FE",source=cds)
+	#p.rect(x=df["Send_Date"],y=df["Open_Rate"].apply(lambda x: x/2),width=8,width_units="screen",
+		#height=df["Open_Rate"],line_color="grey",source=cds,color="#44D5FE")
+	p.y_range=Range1d(0,45)
 
-	
-	
 	r=df[["Send_Date", "Successful_Deliveries","Soft_Bounces","Hard_Bounces","Total_Bounces",
 	"Unique_Opens","Unique_Clicks","Unsubscribes","Open_Rate","Click_Rate"]].groupby([pd.Grouper(freq='1W',key='Send_Date')]).agg({"Open_Rate": np.mean, "Click_Rate" : np.mean,
 	 "Successful_Deliveries" : np.sum,"Soft_Bounces" : np.sum,"Hard_Bounces" : np.sum,"Total_Bounces" : np.sum,
 	"Unique_Opens" : np.sum,"Unique_Clicks" : np.sum,"Unsubscribes" : np.sum}).round(2)
-	
+
 	html_table=r.to_html(bold_rows=True, border=None, justify='left',index=True)
 	
 	script1,div1=components(p)
@@ -163,6 +162,8 @@ def marketing():
     html_table=html_table,
     cdn_css=cdn_css,
     cdn_js=cdn_js )
+
+
 
 @app.route('/email_validation/', methods=['GET','POST'])
 def email_validation():

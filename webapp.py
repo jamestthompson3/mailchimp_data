@@ -132,6 +132,8 @@ def marketing():
 		("Total Clicks","@Total_Clicks"),("Unsubs","@Unsubscribes"),("Bounces","@Total_Bounces")])
 	
 	p.add_tools(hover)
+	p.logo=None
+	p.toolbar_location=None
 	p.title="Email Campaign Open Rates (hover for more details)"
 	p.title.text_font_size='20pt'
 	p.xaxis.axis_label="Send Date"

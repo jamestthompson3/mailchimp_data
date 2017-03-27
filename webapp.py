@@ -15,7 +15,6 @@ from bokeh.plotting import output_file, show, figure
 from bokeh.models import *
 from bokeh.embed import components
 from bokeh.resources import CDN
-from mailchimp3 import MailChimp
 
 app=Flask(__name__)
 def send_email(file):
@@ -123,10 +122,6 @@ def newsletter():
 
 @app.route('/marketing/')
 def marketing():
-	df=pd.read_csv("mailchimp_campaigns.csv", parse_dates=["Send_Date"])
-
-	client=MailChimp("taylor@mydomino.com","0e39bfa6863633ce5bd8214e02b7a430-us10")
-	reportage=client.reports.all(get_all=True)
 
 	cds=ColumnDataSource(df)
 	

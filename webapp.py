@@ -15,6 +15,7 @@ from bokeh.plotting import output_file, show, figure
 from bokeh.models import *
 from bokeh.embed import components
 from bokeh.resources import CDN
+from mailchimp3 import MailChimp
 
 app=Flask(__name__)
 def send_email(file):
@@ -99,9 +100,9 @@ def newsletter():
 	p.yaxis.axis_label="Open Rate (%) "
 	p.yaxis.axis_label_text_font_size="15pt"
 	p.logo=None
-	p.toolbar_location=None
 	
 	p.circle(df["Send_Date"],df["Open_Rate"],fill_color="#44D5FE", line_color="gray",source=cds,size=11)
+	
 	r=df[["Send_Date", "Successful_Deliveries","Soft_Bounces","Hard_Bounces","Total_Bounces",
 	"Unique_Opens","Unique_Clicks","Unsubscribes","Open_Rate","Click_Rate"]].groupby([pd.Grouper(freq='1W',key='Send_Date')]).agg({"Open_Rate": np.mean, "Click_Rate" : np.mean,
 	 "Successful_Deliveries" : np.sum,"Soft_Bounces" : np.sum,"Hard_Bounces" : np.sum,"Total_Bounces" : np.sum,
@@ -124,6 +125,8 @@ def newsletter():
 def marketing():
 	df=pd.read_csv("mailchimp_campaigns.csv", parse_dates=["Send_Date"])
 
+	client=MailChimp("taylor@mydomino.com","0e39bfa6863633ce5bd8214e02b7a430-us10")
+	reportage=client.reports.all(get_all=True)
 
 	cds=ColumnDataSource(df)
 	

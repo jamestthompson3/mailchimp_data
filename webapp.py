@@ -122,7 +122,7 @@ def newsletter():
 
 @app.route('/marketing/')
 def marketing():
-
+	df=pd.read_csv("mailchimp_campaigns.csv", parse_dates=["Send_Date"])
 	cds=ColumnDataSource(df)
 	
 	p=figure(plot_width=700,plot_height=400,x_axis_type="datetime",responsive=True)

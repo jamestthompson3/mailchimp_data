@@ -1,9 +1,10 @@
 body{
-	margin: auto;
+	margin: auto;[]
 	padding: 15px;
 	font-family: "adelle-sans";
   font-style: normal;
   font-weight: 600;
+  background-image: url("{{{url_for('static',filename='Domino_Website_Penguin_Graphic.jpg')}}");
   float:auto;
 }
 #title{
@@ -14,6 +15,11 @@ body{
   font-weight: 600;
   float:auto;
   color:black;
+}
+img{
+  height: 200px;
+  width: 400px;
+
 }
 header {
   padding: 10px;

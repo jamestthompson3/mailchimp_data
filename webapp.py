@@ -22,13 +22,14 @@ def send_email(file):
 	from_email="sendmeemail951@gmail.com"
 	from_password="sendtheemail"
 	
-	subject="Hello."
-	message="This was sent by one of your friends. You are doing a great job and someone cares about you! I hope you have a wonderful day!"
-	msg=MIMEText(message,'html')
-	msg['Subject']=subject
-	msg['From']=from_email
+	
 	for item in df["Email"]:
 		
+		subject="Hello."
+		message="This was sent by one of your friends. You are doing a great job and someone cares about you! I hope you have a wonderful day!"
+		msg=MIMEText(message,'html')
+		msg['Subject']=subject
+		msg['From']=from_email
 		msg['To']=item
 		gmail=smtplib.SMTP('smtp.gmail.com',587)
 		gmail.ehlo()
@@ -51,10 +52,9 @@ def check_bounces(address):
 		email_message = email.message_from_bytes(raw_email)
 		temporary, permanent=all_failures(email_message)
 		email_list.append(permanent)
-		with open("bounces.csv",'a+') as file:
-			write=csv.writer(file, delimiter=',')
-			write.writerow(email_list)
-	
+		with open("bounces.txt",'w+') as file:
+			file.writelines(str(item) for item in email_list)
+
 	from_email="sendmeemail951@gmail.com"
 	from_password="sendtheemail"
 
@@ -124,6 +124,10 @@ def newsletter():
 def marketing():
 	df=pd.read_csv("mailchimp_campaigns.csv", parse_dates=["Send_Date"])
 	cds=ColumnDataSource(df)
+	hrdf=df[(df['List']=='Hoovers') | (df['List']=='LinkedIn HR') | (df['List']=='HR combined') | (df['List']=='LinkedIn HR Group 2')]
+	hrcds=ColumnDataSource(hrdf)
+
+
 	
 	p=figure(plot_width=700,plot_height=400,x_axis_type="datetime",responsive=True)
 	hover=HoverTool(tooltips=[("Group","@Title"),("Open Rate","@Open_Rate"),("Subject","@Subject"),("Successful Deliveries", "@Successful_Deliveries"),("Opens","@Unique_Opens"),("Click Rate","@Click_Rate"),
@@ -139,7 +143,11 @@ def marketing():
 	p.yaxis.axis_label_text_font_size="15pt"
 	
 	p.line(df["Send_Date"],df["Open_Rate"],color="gray",source=cds,line_width=3)
-	p.circle(df["Send_Date"],df["Open_Rate"],fill_color="#44D5FE", line_color="gray",source=cds,size=11)
+	
+	p.circle(df["Send_Date"],df["Open_Rate"],fill_color="#44D5FE", line_color="gray",source=cds,size=11,legend="CSR Groups")
+	p.circle(hrdf["Send_Date"],hrdf["Open_Rate"],fill_color="purple",size=11,line_color="gray",source=hrcds,legend="HR Groups")
+	p.legend.location="bottom_left"
+	
 	#p.rect(x=df["Send_Date"],y=df["Open_Rate"].apply(lambda x: x/2),width=8,width_units="screen",
 		#height=df["Open_Rate"],line_color="grey",source=cds,color="#44D5FE")
 	p.y_range=Range1d(0,45)

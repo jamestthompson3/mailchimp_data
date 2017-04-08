@@ -43,7 +43,6 @@ def check_bounces(address):
 	mail.login('sendmeemail951@gmail.com','sendtheemail')
 	mail.list()
 	mail.select("inbox")
-	email_list=[]
 	result, data = mail.uid('search', None, "ALL") # search and return uids instead
 	latest_email_uid = data[0].split()
 	for item in latest_email_uid:
@@ -51,9 +50,11 @@ def check_bounces(address):
 		raw_email=data[0][1]
 		email_message = email.message_from_bytes(raw_email)
 		temporary, permanent=all_failures(email_message)
-		email_list.append(permanent)
-		with open("bounces.txt",'w+') as file:
-			file.writelines(str(item) for item in email_list)
+		email_list=[permanent]
+		# with open("bounces.txt",'w+') as file:
+		# 	for item in email_list:
+		# 		file.writelines(str(item))
+		print(email_list)
 
 	from_email="sendmeemail951@gmail.com"
 	from_password="sendtheemail"
